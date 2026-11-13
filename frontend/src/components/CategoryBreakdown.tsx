@@ -1,5 +1,5 @@
 import { CATEGORIES, type Category } from '../types';
-import { formatCategory } from '../format';
+import { formatCategory, formatPercent } from '../format';
 
 interface Props {
   counts: Record<Category, number>;
@@ -9,18 +9,19 @@ interface Props {
 export default function CategoryBreakdown({ counts, total }: Props) {
   return (
     <section className="card">
-      <h2>Categories</h2>
+      <h2>تفکیک دسته‌بندی‌ها</h2>
       <ul className="breakdown">
         {CATEGORIES.map((cat) => {
-          const pct = (counts[cat] / total * 100).toFixed(1);
+          const count = counts[cat] ?? 0;
+          const pct = formatPercent(count, total);
           return (
             <li key={cat}>
               <span className="cat-name">{formatCategory(cat)}</span>
               <span className="bar">
-                <span className="bar-fill" style={{ width: `${pct}%` }} />
+                <span className="bar-fill" style={{ width: pct }} />
               </span>
-              <span className="cat-count">{counts[cat].toLocaleString()}</span>
-              <span className="cat-pct">{pct}%</span>
+              <span className="cat-count">{count.toLocaleString('fa-IR')}</span>
+              <span className="cat-pct">{pct}</span>
             </li>
           );
         })}

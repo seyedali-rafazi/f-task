@@ -1,31 +1,76 @@
 * { box-sizing: border-box; }
-body { margin: 0; font-family: system-ui, sans-serif; background: #f5f6f8; color: #1f2430; }
-.container { max-width: 1100px; margin: 0 auto; padding: 24px 16px; }
+body {
+  margin: 0;
+  font-family: 'Vazirmatn', system-ui, -apple-system, sans-serif;
+  background: #f5f6f8;
+  color: #1f2430;
+  line-height: 1.6;
+}
+button, input, textarea { font-family: inherit; }
+.container { max-width: 1140px; margin: 0 auto; padding: 24px 16px; }
 .muted { color: #6b7280; }
 .error { color: #b42318; }
-.card { background: #fff; border: 1px solid #e3e5ea; border-radius: 8px; padding: 16px; margin: 16px 0; }
+.card { background: #fff; border: 1px solid #e3e5ea; border-radius: 10px; padding: 16px 20px; margin: 16px 0; }
 .upload { display: flex; gap: 16px; align-items: flex-end; flex-wrap: wrap; }
-.upload label { display: flex; flex-direction: column; gap: 4px; font-size: 14px; }
-button { background: #2457d6; color: #fff; border: 0; border-radius: 6px; padding: 8px 16px; cursor: pointer; }
+.upload label { display: flex; flex-direction: column; gap: 6px; font-size: 14px; font-weight: 500; }
+button {
+  background: #2457d6;
+  color: #fff;
+  border: 0;
+  border-radius: 6px;
+  padding: 8px 16px;
+  cursor: pointer;
+  font-size: 14px;
+}
+button.secondary { background: #eef2ff; color: #1e40af; }
+button.approve { background: #15803d; }
 button:disabled { opacity: .5; cursor: default; }
-.tiles { display: flex; gap: 16px; }
-.tiles .tile { flex: 1; }
+.tiles { display: flex; gap: 16px; flex-wrap: wrap; }
+.tiles .tile { flex: 1; min-width: 200px; }
 .tile-label { font-size: 13px; color: #6b7280; }
-.tile-value { font-size: 32px; font-weight: 600; }
+.tile-value { font-size: 32px; font-weight: 700; }
 .tile.urgent .tile-value { color: #b42318; }
 .breakdown { list-style: none; margin: 0; padding: 0; }
-.breakdown li { display: grid; grid-template-columns: 140px 1fr 60px 60px; gap: 12px; align-items: center; padding: 4px 0; }
+.breakdown li { display: grid; grid-template-columns: 150px 1fr 60px 65px; gap: 12px; align-items: center; padding: 6px 0; }
 .bar { background: #eceef2; height: 10px; border-radius: 5px; overflow: hidden; }
 .bar-fill { display: block; height: 100%; background: #2457d6; }
-.cat-count, .cat-pct { text-align: right; font-variant-numeric: tabular-nums; }
-.urgent-list { padding-left: 18px; }
+.cat-count, .cat-pct { text-align: left; font-variant-numeric: tabular-nums; direction: ltr; }
 .table-wrap { overflow-x: auto; }
 table { border-collapse: collapse; width: 100%; font-size: 13px; }
-th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid #eceef2; vertical-align: top; }
+th, td { text-align: right; padding: 8px 10px; border-bottom: 1px solid #eceef2; vertical-align: top; }
+th { background: #f9fafb; font-weight: 600; white-space: nowrap; }
 .body-cell { max-width: 360px; }
+.ltr { direction: ltr; unicode-bidi: embed; }
+.order-ref { background: #fff3c4; padding: 0 3px; border-radius: 3px; }
 
-.order-ref { background: #fff3c4; padding: 0 2px; }
 .attention-list { list-style: none; margin: 0; padding: 0; }
-.attention-list li { padding: 8px 0; border-bottom: 1px solid #eceef2; }
-.attention-meta { font-size: 13px; color: #6b7280; margin: 2px 0 6px; }
-.draft-box { margin-top: 6px; padding: 8px; background: #f5f6f8; border-radius: 6px; white-space: pre-wrap; }
+.attention-list li { padding: 12px 0; border-bottom: 1px solid #eceef2; }
+.attention-list li:last-child { border-bottom: 0; }
+.attention-header { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.attention-meta { font-size: 13px; color: #6b7280; margin: 4px 0 8px; }
+.badge { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 12px; font-weight: 500; }
+.badge-overdue { background: #fee2e2; color: #b42318; }
+.badge-soon { background: #fef3c7; color: #92400e; }
+.badge-urgent { background: #fee2e2; color: #b42318; }
+
+.draft-area { margin-top: 10px; display: flex; flex-direction: column; gap: 8px; }
+.draft-textarea {
+  width: 100%;
+  min-height: 96px;
+  padding: 10px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 14px;
+  resize: vertical;
+}
+.draft-actions { display: flex; align-items: center; gap: 10px; }
+.draft-warning {
+  margin-top: 8px;
+  padding: 10px 12px;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #991b1b;
+  border-radius: 6px;
+  font-size: 13px;
+}
+.copied-note { font-size: 13px; color: #15803d; font-weight: 500; }

@@ -7,15 +7,17 @@ import unicodedata
 import pandas as pd
 
 _WHITESPACE = re.compile(r"\s+")
+_ARABIC_CHARS = str.maketrans("كيى", "کیی")
 
 
 def normalize_body(text: str) -> str:
     """Canonical form of a message body used for duplicate comparison.
 
-    Applies Unicode NFC composition, collapses runs of whitespace (spaces,
-    tabs, newlines) to a single space, trims, and lower-cases.
+    Applies Unicode NFC composition, normalizes Arabic Kaf/Yeh to Persian,
+    collapses runs of whitespace (spaces, tabs, newlines) to a single space,
+    trims, and lower-cases.
     """
-    text = unicodedata.normalize("NFC", text or "")
+    text = unicodedata.normalize("NFC", text or "").translate(_ARABIC_CHARS)
     text = _WHITESPACE.sub(" ", text)
     return text.strip().lower()
 

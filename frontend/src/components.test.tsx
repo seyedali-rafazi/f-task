@@ -5,7 +5,7 @@ import CategoryBreakdown from './components/CategoryBreakdown';
 describe('SummaryTiles', () => {
   it('shows totals', () => {
     render(<SummaryTiles total={1200} urgent={7} />);
-    expect(screen.getByTestId('urgent')).toHaveTextContent('7');
+    expect(screen.getByTestId('urgent')).toHaveTextContent(/7|۷/);
   });
 });
 

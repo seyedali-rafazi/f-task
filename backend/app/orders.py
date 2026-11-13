@@ -3,14 +3,17 @@ from __future__ import annotations
 
 import re
 
+from .jalali import normalize_digits
+
 ORDER_REF_PATTERN = re.compile(r"BZ-([0-9]+)", re.IGNORECASE)
 
 
 def find_order_ref(text: str | None) -> str | None:
-    """Return the first ``BZ-<digits>`` reference in ``text`` (upper-cased prefix)."""
+    """Return the first ``BZ-<digits>`` reference in ``text`` (upper-cased prefix, Latin digits)."""
     if not text:
         return None
-    match = ORDER_REF_PATTERN.search(text)
+    normalized = normalize_digits(text)
+    match = ORDER_REF_PATTERN.search(normalized)
     if match is None:
         return None
     return f"BZ-{match.group(1)}"
