@@ -11,7 +11,7 @@ export default function SummaryTiles({ total, urgent }: Props) {
         <div className="tile-value" data-testid="total">{total.toLocaleString('fa-IR')}</div>
       </div>
       <div className="card tile urgent" data-testid="urgent-count">
-        <div className="tile-label">فوری (عبور از مهلت ۲ ساعته)</div>
+        <div className="tile-label">فوری (گذشته از مهلت)</div>
         <div className="tile-value" data-testid="urgent">{urgent.toLocaleString('fa-IR')}</div>
       </div>
     </section>

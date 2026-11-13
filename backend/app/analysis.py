@@ -38,18 +38,23 @@ def enrich(df: pd.DataFrame, now: datetime, settings: Settings) -> pd.DataFrame:
     df["duplicate_of"] = mark_duplicates(df)
 
     canonical = df["duplicate_of"].isna()
-    categories = classify_messages(df[canonical], settings)
-    by_id = dict(zip(df.loc[canonical, "message_id"], categories))
+    categories, severities = classify_messages(df[canonical], settings)
+    cat_by_id = dict(zip(df.loc[canonical, "message_id"], categories))
+    sev_by_id = dict(zip(df.loc[canonical, "message_id"], severities))
     df["category"] = [
-        by_id[dup if dup is not None else mid]
+        cat_by_id[dup if dup is not None else mid]
+        for mid, dup in zip(df["message_id"], df["duplicate_of"])
+    ]
+    df["severity"] = [
+        sev_by_id[dup if dup is not None else mid]
         for mid, dup in zip(df["message_id"], df["duplicate_of"])
     ]
 
     df["is_urgent"] = [
         bool(is_canonical)
-        and is_urgent(hint, received, answered, now, settings.urgent_sla_business_hours)
-        for is_canonical, hint, received, answered in zip(
-            canonical, df["severity_hint"], df["received_at"], df["answered_at"]
+        and is_urgent(sev, received, answered, now, settings.urgent_sla_business_hours)
+        for is_canonical, sev, received, answered in zip(
+            canonical, df["severity"], df["received_at"], df["answered_at"]
         )
     ]
     return df
@@ -77,7 +82,7 @@ def build_report(df: pd.DataFrame, include_details: bool = False) -> dict[str, A
                     "answered_at": _iso(row.answered_at),
                     "subject": row.subject,
                     "body": row.body,
-                    "severity": row.severity_hint,
+                    "severity": row.severity,
                     "severity_hint": row.severity_hint,
                 }
             )

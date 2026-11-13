@@ -9,7 +9,7 @@ from .sla import business_hours_between
 
 
 def is_urgent(
-    severity_hint: str,
+    severity: str,
     received_at: datetime,
     answered_at: datetime | None,
     now: datetime,
@@ -17,10 +17,8 @@ def is_urgent(
 ) -> bool:
     """A message is urgent when it is high severity, still unanswered at
     ``now``, and has waited at least ``sla_hours`` business hours.
-
-    severity_hint is assigned by the support system and is reliable.
     """
-    if severity_hint != "high":
+    if (severity or "").lower() != "high":
         return False
     if answered_at is not None and not pd.isna(answered_at) and answered_at <= now:
         return False

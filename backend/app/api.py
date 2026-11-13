@@ -39,7 +39,7 @@ async def analyze_upload(
     except ValueError as exc:
         raise HTTPException(status_code=400, detail=f"invalid 'now': {exc}") from exc
     try:
-        return analyze(io.BytesIO(content), now=reference_time, include_details=True, prefetch_drafts=True)
+        return analyze(io.BytesIO(content), now=reference_time, include_details=True, prefetch_drafts=False)
     except ValueError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
 
